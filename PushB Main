@@ -7,3 +7,20 @@ int lastButtonState = LOW;
 
 long lastDebounceTime = 0;
 long debounceDelay = 50;
+
+void setup() {
+  pinMode(buttonPin, OUTPUT);
+  pinMode(ledpin, OUTPUT);
+}
+
+void loop() {
+  
+  int reading = digitalRead(buttonPin);
+  
+  if(reading !=lastButtonState) {lastDebounceTime = millis();}
+  
+  if((millis() - lastDebounceTime) > debounceDelay){buttonState = reading;}
+  
+  digitalWrite(ledpin, buttonState);
+  
+  lastButtonState = reading;
