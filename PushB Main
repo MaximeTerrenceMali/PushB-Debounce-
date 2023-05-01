@@ -1,26 +1,18 @@
-const int buttonPin = 2;
-const int ledpin = 13;
+// Include the Pushbutton header file
+#include "PB.h"
 
-int ledState = HIGH;
-int buttonState;
-int lastButtonState = LOW;
-
-long lastDebounceTime = 0;
-long debounceDelay = 50;
+// Creating an instance of the PB class connected to pin 13
+PB button(6);
 
 void setup() {
-  pinMode(buttonPin, OUTPUT);
-  pinMode(ledpin, OUTPUT);
+  Serial.begin(9600); //begins the operation of serial monitor
 }
 
 void loop() {
-  
-  int reading = digitalRead(buttonPin);
-  
-  if(reading !=lastButtonState) {lastDebounceTime = millis();}
-  
-  if((millis() - lastDebounceTime) > debounceDelay){buttonState = reading;}
-  
-  digitalWrite(ledpin, buttonState);
-  
-  lastButtonState = reading;
+  // verify if the pushbutton is pressed
+  if (button.isPressed()) {
+    // Records the button state and writes it in the serial monitor
+    Serial.print("Button state is :  ");
+    Serial.println(digitalRead(6));
+  }
+}
